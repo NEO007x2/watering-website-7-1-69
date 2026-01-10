@@ -783,7 +783,7 @@ console.log('Hold phone horizontally (landscape) for game controller layout.');
 
 // ESP32 cam live streamimg 
 
-  const esp32Ip = "10.231.38.238"; //esp32 cam IP
+  const esp32Ip = "10.48.223.173"; //esp32 cam IP
   const streamPort = ":81";        
   const streamPath = "/stream";    
 
