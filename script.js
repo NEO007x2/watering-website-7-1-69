@@ -670,7 +670,7 @@ function handleScrollAnimations() {
 window.addEventListener('scroll', handleScrollAnimations);
 
 // ===== ESP32 Camera Stream with Improved Stability =====
-const esp32Ip = "10.48.223.173";
+const esp32Ip = "10.25.126.173";
 const streamPort = ":81";
 const streamPath = "/stream";
 const streamUrl = `http://${esp32Ip}${streamPort}${streamPath}`;
