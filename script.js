@@ -413,11 +413,8 @@ if (captureBtn) {
         
         console.log(`Capturing image: ${width}x${height}`);
         
-        // Apply 180 degree rotation to match the displayed stream
-        ctx.translate(width, height);
-        ctx.rotate(Math.PI);
+        // Draw image without rotation - rotation will be applied when displaying
         ctx.drawImage(streamImg, 0, 0, width, height);
-        ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform
         
         let capturedImageUrl;
         try {
@@ -429,28 +426,15 @@ if (captureBtn) {
           fetch(streamImg.src)
             .then(response => response.blob())
             .then(blob => {
-              // Create a temporary image to apply rotation
-              const img = new Image();
-              img.onload = () => {
-                const tempCanvas = document.createElement('canvas');
-                const tempCtx = tempCanvas.getContext('2d');
-                
-                tempCanvas.width = img.width;
-                tempCanvas.height = img.height;
-                
-                // Apply 180 degree rotation
-                tempCtx.translate(img.width, img.height);
-                tempCtx.rotate(Math.PI);
-                tempCtx.drawImage(img, 0, 0, img.width, img.height);
-                tempCtx.setTransform(1, 0, 0, 1, 0, 0);
-                
-                const base64data = tempCanvas.toDataURL('image/jpeg', 0.85);
+              const reader = new FileReader();
+              reader.onloadend = () => {
+                const base64data = reader.result;
                 
                 const newPhoto = {
                   url: base64data,
                   date: new Date().toLocaleString(),
-                  width: img.width,
-                  height: img.height
+                  width: width,
+                  height: height
                 };
                 
                 photos.unshift(newPhoto);
@@ -461,13 +445,8 @@ if (captureBtn) {
                 
                 localStorage.setItem('robotPhotos', JSON.stringify(photos));
                 renderGallery();
-                showToast('Photo captured!', `Photo saved via fetch (${img.width}x${img.height})`);
+                showToast('Photo captured!', `Photo saved via fetch (${width}x${height})`);
                 console.log(`Photo saved via fetch. Total photos: ${photos.length}`);
-              };
-              
-              const reader = new FileReader();
-              reader.onloadend = () => {
-                img.src = reader.result;
               };
               reader.readAsDataURL(blob);
             })
