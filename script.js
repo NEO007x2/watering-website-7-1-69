@@ -370,7 +370,7 @@ function renderGallery() {
   } else {
     galleryGrid.innerHTML = photos.map((photo, index) => `
       <div class="gallery-item">
-        <img src="${photo.url}" alt="Captured at ${photo.date}" style="transform: rotate(180deg);">
+        <img src="${photo.url}" alt="Captured at ${photo.date}">
         <button class="delete-photo-btn" onclick="deletePhoto(${index})" title="Delete photo">×</button>
       </div>
     `).join('');
