@@ -413,7 +413,11 @@ if (captureBtn) {
         
         console.log(`Capturing image: ${width}x${height}`);
         
+        // Apply 180 degree rotation to match the displayed stream
+        ctx.translate(width, height);
+        ctx.rotate(Math.PI);
         ctx.drawImage(streamImg, 0, 0, width, height);
+        ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform
         
         let capturedImageUrl;
         try {
