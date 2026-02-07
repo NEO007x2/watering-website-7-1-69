@@ -738,7 +738,7 @@ function startStream() {
     errorCount = 0;
     console.log("Camera stream connected");
     streamImg.style.display = 'block';
-    streamImg.style.transform = 'scaleX(-1)';
+    streamImg.style.transform = 'rotate(180deg)';
     placeholder.style.display = 'none';
     updateConnectionStatus(true); // ← THIS IS NEW
     if (placeholderText) placeholderText.textContent = 'Camera stream offline';
